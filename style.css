@@ -1,0 +1,129 @@
+:root {
+  --gold: #c7a443;
+  --cream: #fffdf5;
+  --brown: #4b3723;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+header img.logo {
+  height: 45px;
+}
+
+nav a {
+  color: var(--brown);
+  text-decoration: none;
+  margin: 0 .8rem;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+.hero {
+  position: relative;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+.hero video, .hero img.bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(.4);
+}
+.hero h1 {
+  font-size: 2rem;
+}
+.hero p { font-size: 1.1rem; }
+.hero .btn {
+  background: var(--gold);
+  color: var(--brown);
+  padding: .8rem 1.4rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+.card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+.card-body { padding: .8rem 1rem; }
+.card-body h3 { margin: .2rem 0; }
+.btn-whatsapp {
+  display: inline-block;
+  background: #25D366;
+  color: white;
+  padding: .6rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: .4rem;
+}
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--brown);
+}
+
+footer {
+  background: var(--brown);
+  color: var(--cream);
+  text-align: center;
+  padding: 1rem;
+  font-size: .9rem;
+}
+
+#floatWA {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: #25D366;
+  width: 55px; height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,.3);
+  z-index: 99;
+}
