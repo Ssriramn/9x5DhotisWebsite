@@ -24,7 +24,18 @@ async function loadSheet(sheetUrl, containerId){
       if(!r[idxName]) return;
       const pics=[r[idxPic1],r[idxPic2],r[idxPic3]].filter(Boolean);
       html+=`<div class="card">
-        ${pics.length?`<img src="${pics[0]}" alt="${r[idxName]}">`:''}
+
+<img 
+  src="${pics[0] || 'Logo.jpeg'}"
+  alt="${r[idxName]}"
+  loading="lazy"
+  decoding="async"
+  onerror="this.onerror=null;this.src='Logo.jpeg';"
+/>
+
+
+
+        
         <div class="card-body">
           <h3>${r[idxName]}</h3>
           <p><strong>Price:</strong> ₹${r[idxRate]||''}</p>
@@ -42,4 +53,5 @@ async function loadSheet(sheetUrl, containerId){
     console.error(e);
   }
 }
+
 
