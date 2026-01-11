@@ -3,7 +3,11 @@ async function loadSheet(sheetUrl, containerId){
   output.innerHTML='<div class="loading">Loading Dhotis...</div>';
   try{
     const csvUrl = sheetUrl.replace('/edit','#gid=0').replace('edit?gid=','export?format=csv&gid=');
-    const res = await fetch(csvUrl);
+    const res = await fetch(csvUrl, {
+    headers: {
+    'Cache-Control': 'public, max-age=3600'
+    }});
+    
     const text = await res.text();
     const rows = text.split('\n').map(r=>r.split(','));
     const headers = rows[0];
@@ -38,3 +42,4 @@ async function loadSheet(sheetUrl, containerId){
     console.error(e);
   }
 }
+
