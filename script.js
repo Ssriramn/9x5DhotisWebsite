@@ -1,3 +1,37 @@
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let insideQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    if (char === '"') {
+      insideQuotes = !insideQuotes;
+    } else if (char === ',' && !insideQuotes) {
+      row.push(cell.trim());
+      cell = '';
+    } else if ((char === '\n' || char === '\r') && !insideQuotes) {
+      if (cell || row.length) {
+        row.push(cell.trim());
+        rows.push(row);
+        row = [];
+        cell = '';
+      }
+    } else {
+      cell += char;
+    }
+  }
+
+  if (cell || row.length) {
+    row.push(cell.trim());
+    rows.push(row);
+  }
+
+  return rows;
+}
+
 async function loadSheet(sheetUrl, containerId){
   const output=document.getElementById(containerId);
   output.innerHTML='<div class="loading">Loading Dhotis...</div>';
@@ -9,7 +43,10 @@ async function loadSheet(sheetUrl, containerId){
     }});
     
     const text = await res.text();
-    const rows = text.split('\n').map(r=>r.split(','));
+    const rows = parseCSV(text);
+
+
+    
     const headers = rows[0];
     const idxName=headers.indexOf('Article Number');
     const idxRate=headers.indexOf('Rate');
@@ -22,7 +59,10 @@ async function loadSheet(sheetUrl, containerId){
     let html='';
     rows.slice(1).forEach(r=>{
       if(!r[idxName]) return;
-      const pics=[r[idxPic1],r[idxPic2],r[idxPic3]].filter(Boolean);
+      
+    const pics = [r[idxPic1], r[idxPic2], r[idxPic3]]
+    .map(v => v ? v.replace(/^"+|"+$/g, '') : '')
+    .filter(Boolean);
       html+=`<div class="card">
 
 <img 
@@ -30,6 +70,7 @@ async function loadSheet(sheetUrl, containerId){
   alt="${r[idxName]}"
   loading="lazy"
   decoding="async"
+   referrerpolicy="no-referrer"
   onerror="this.onerror=null;this.src='Logo.jpeg';"
 />
 
@@ -53,5 +94,6 @@ async function loadSheet(sheetUrl, containerId){
     console.error(e);
   }
 }
+
 
 
